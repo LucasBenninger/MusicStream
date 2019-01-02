@@ -49,6 +49,17 @@ app.use("/setup", setupRoute);
 const songRoute = require("./routes/songs");
 app.use("/songs", songRoute);
 
+// API Routes
+const albumRouteV1 = require("./routes/api/v1/albums");
+const artistRouteV1 = require("./routes/api/v1/artists");
+const searchRouteV1 = require("./routes/api/v1/search");
+const songsRouteV1 = require("./routes/api/v1/songs");
+
+app.use("/api/v1/album", albumRouteV1);
+app.use("/api/v1/artist", artistRouteV1);
+app.use("/api/v1/search", searchRouteV1);
+app.use("/api/v1/songs", songsRouteV1);
+
 // Port
 const port = process.env.PORT || 3000;
 // Listen
