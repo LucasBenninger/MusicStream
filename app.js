@@ -1,0 +1,57 @@
+const express = require("express");
+const expresshbs = require("express-handlebars");
+const morgan = require("morgan");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const db = require("./config/keys.js").mongoURI;
+const serveIndex = require("serve-index");
+// Config
+const configFile = "./config/config.json";
+const config = require(configFile);
+
+mongoose
+	.connect(
+		db,
+		{ useNewUrlParser: true }
+	)
+	.then(() => {
+		console.log("MognoDB Connected");
+	})
+	.catch(err => console.log(err));
+
+const app = express();
+
+// Middleware
+//app.use(express.static("public"));
+app.use(morgan("combined"));
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// View Engine
+app.engine("handlebars", expresshbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Routes
+app.use(
+	"/static",
+	express.static(config.musicDir),
+	serveIndex(config.musicDir, { icons: true })
+);
+
+const indexRoute = require("./routes/index");
+app.use("/", indexRoute);
+
+const setupRoute = require("./routes/setup");
+app.use("/setup", setupRoute);
+
+const songRoute = require("./routes/songs");
+app.use("/songs", songRoute);
+
+// Port
+const port = process.env.PORT || 3000;
+// Listen
+app.listen(port, () => {
+	console.log(`Listening on Port http://127.0.0.1:${port}`);
+});

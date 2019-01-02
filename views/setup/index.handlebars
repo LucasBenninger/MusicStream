@@ -1,0 +1,13 @@
+<h1> <a href="/setup">Setup</a></h1>
+{{message}}
+<form action="/setup/config" method="post" id="config">
+	<label for="musicDir">Music Directory</label>
+	<br />
+	<input id="musicDir" name="musicDir" type="text" value="{{config.musicDir}}">
+	<br />
+	<button type="submit">Submit</button>
+</form>
+
+<form action="/setup/scan" method="post">
+	<button type="submit">Scan Music</button>
+</form>
