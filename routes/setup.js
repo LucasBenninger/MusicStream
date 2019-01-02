@@ -23,7 +23,21 @@ router.post("/config", (req, res) => {
 router.post("/scan", (req, res) => {
 	getFiles(config.musicDir);
 
-	res.render("setup/index", { message: `Scanning dir ${config.musicDir}` });
+	res.render("setup/index", {
+		message: `Scanning dir ${config.musicDir}`,
+		config
+	});
+});
+
+router.post("/destroy", (req, res) => {
+	// Removes all songs from database
+	// Will need to rescan
+	Song.remove({})
+		.save()
+		.then(
+			res.render("setup/index", { message: `Clearing Database...`, config })
+		)
+		.catch(err => console.log(err));
 });
 
 function getFiles(dir) {
@@ -43,6 +57,10 @@ function getFiles(dir) {
 						if (err) {
 							throw err;
 						}
+						// Strip Music Directory from file location
+						var tempLocation = dir + "/" + file.name;
+						tempLocation = tempLocation.replace(config.musicDir, "/static");
+
 						const newSong = Song({
 							trackNumber: metadata.track.no,
 							title: metadata.title,
@@ -53,7 +71,7 @@ function getFiles(dir) {
 							genre: metadata.genre,
 							disk: metadata.disk.no,
 
-							location: dir + "/" + file.name
+							location: tempLocation
 						})
 							.save()
 							.catch(err => console.log(err));

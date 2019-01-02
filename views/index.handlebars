@@ -5,6 +5,12 @@
 <table>
 	{{#each songs}}
 	<tr>
+		<td>
+			<a onclick="this.firstElementChild.play()" class="button">
+				<audio src="{{location}}">
+				</audio>
+				&#9658;</a>
+		</td>
 		<td>{{title}}</td>
 		<td>{{artist}}</td>
 	</tr>
