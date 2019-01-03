@@ -30,7 +30,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // View Engine
-app.engine("handlebars", expresshbs({ defaultLayout: "main" }));
+app.set("views", __dirname + "/views");
+app.engine(
+	"handlebars",
+	expresshbs({ defaultLayout: __dirname + "/views/layouts/main" })
+);
 app.set("view engine", "handlebars");
 
 // Routes
