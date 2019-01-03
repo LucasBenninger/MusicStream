@@ -85,4 +85,6 @@ typings/
 .dynamodb/
 
 # End of https://www.gitignore.io/api/node
+
 server/config/keys.js
+client/node_modules/

@@ -1,7 +1,7 @@
 {
 	"name": "musicstream",
 	"version": "1.0.0",
-	"description": "",
+	"description": "An open source, self hosted music streaming service",
 	"main": "app.js",
 	"scripts": {
 		"dev": "nodemon app.js --ignore './config/'",
