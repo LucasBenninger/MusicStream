@@ -2,7 +2,7 @@
 
 An opensource, self hosted music streaming service.
 
-This project is far from complete, and is actively being worked on.
+This project is far from complete.
 
 The Stack:
 
